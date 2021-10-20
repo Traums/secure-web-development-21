@@ -9,8 +9,6 @@ const server = http.createServer((rq, rs) => {
 	console.log(rs.method);
 	rs.end(`
 	<html>
-
-		
 		<head>
 		<script>
 			const hello = (msg) => {

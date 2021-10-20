@@ -27,9 +27,6 @@ const server = http.createServer((rq, rs) => {
 			rs.end('we host only html files');
 			return; //Выходим с ошибкой
 	}
-
-
-	
 	
 	if(filename === "/signin.html"){//Это страница проверки пароля
 

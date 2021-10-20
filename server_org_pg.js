@@ -48,9 +48,6 @@ const server = http.createServer((rq, rs) => {
 		rs.end(`database date is ${dbdate}`);
 	});
 	
-	
-	
-	
 });
 
 server.listen(port, hostname, ()=>{
