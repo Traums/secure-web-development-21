@@ -2,12 +2,13 @@ const http = require('http');
 const fs = require('fs');
 const url = require('url');
 const pathutil = require("path");
+const express = require('express');
 
 const hostname = '127.0.0.1';
 const port = 8080;
 
 const server = http.createServer((rq, rs) => {
-	
+
 	let query = url.parse(rq.url, true);
 	let data = query.query;
 	let filename = query.pathname;
@@ -22,12 +23,30 @@ const server = http.createServer((rq, rs) => {
 	//2. Преобразуем относительный путь из адреса в путь относительно корня сайта https://nodejs.org/api/path.html#pathbasenamepath-ext 
 	path = pathutil.basename(path);
 	//3. Проверим расширение https://nodejs.org/api/path.html#pathextnamepath
+	// if (filename === '/'){
+	// 	rs.statusCode = 301;
+	// 	rs.setHeader('Content-Type', 'text/html');
+	// 	const data_login = fs.readFileSync('./login.html');
+	// 	rs.end(data_login);
+	// 	return;
+	// }
+
 	if(pathutil.extname(path) !== '.html'){
-		rs.writeHead(400);
-			rs.end('we host only html files');
-			return; //Выходим с ошибкой
+ 		rs.writeHead(400);
+ 		rs.end('we host only html files');
+ 		return;
+/*		rs.writeHead(304);
+		const data = fs.readFileSync('./index.html');
+		rs.end(data);
+		return;*/
 	}
-	
+
+	if(filename === "/"){
+		rs.writeHead(500);
+		rs.end('FILENAME IS NOT FOUND'); //Файл не найде
+		return;
+	}
+
 	if(filename === "/signin.html"){//Это страница проверки пароля
 
 		let login = data.name;//Имя пользователя со страницы логина

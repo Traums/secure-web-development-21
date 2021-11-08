@@ -20,14 +20,14 @@ const server = http.createServer((rq, rs) => {
 	
 	const client = new Client({
 		user: 'postgres',
-		host: '192.168.121.137',
-		database: 'lib',
-		password: 'P@ssw0rd',
+		host: 'localhost',
+		database: 'node_postgres',
+		password: '12345',
 		port: 5432,
 	});
 	client.connect();
 	
-	client.query('SELECT id, name from author', (err, res) => {
+	client.query('SELECT id from author', (err, res) => {
 		console.log(err, res);
 		if(err){
 			console.error(err);
